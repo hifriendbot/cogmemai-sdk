@@ -1,0 +1,33 @@
+{
+  "name": "cogmemai-sdk",
+  "version": "1.0.0",
+  "description": "CogmemAi — Persistent memory for AI coding assistants",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "memory",
+    "claude",
+    "coding-assistant",
+    "mcp",
+    "developer-tools",
+    "persistent-memory"
+  ],
+  "author": "HiFriendbot <developers@hifriendbot.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hifriendbot/cogmemai-sdk.git"
+  },
+  "homepage": "https://hifriendbot.com/developer/",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
