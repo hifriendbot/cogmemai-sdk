@@ -1,6 +1,6 @@
 # CogmemAi JavaScript/TypeScript SDK
 
-Persistent memory for AI coding assistants. Give your AI tools memory that persists across sessions.
+The smart memory layer for everything Ai. Persistent, encrypted recall for any Ai system: agents, assistants, robots, and the tools you already use. 95.10% on LongMemEval, the highest published score.
 
 ## Install
 
@@ -43,34 +43,34 @@ await client.extractMemories({
 ## All Methods
 
 ### Core Memory
-- `saveMemory(options)` — Save a memory
-- `recallMemories(options)` — Semantic search
-- `extractMemories(options)` — Ai extracts facts from conversation
-- `getProjectContext(options?)` — Load top memories with smart ranking
-- `listMemories(options?)` — Browse with filters
-- `updateMemory(memoryId, options)` — Edit a memory
-- `deleteMemory(memoryId)` — Delete permanently
-- `getUsage()` — Check usage stats and tier
+- `saveMemory(options)`, Save a memory
+- `recallMemories(options)`, Semantic search
+- `extractMemories(options)`, Ai extracts facts from conversation
+- `getProjectContext(options?)`, Load top memories with smart ranking
+- `listMemories(options?)`, Browse with filters
+- `updateMemory(memoryId, options)`, Edit a memory
+- `deleteMemory(memoryId)`, Delete permanently
+- `getUsage()`, Check usage stats and tier
 
 ### Documents & Sessions
-- `ingestDocument(options)` — Extract memories from docs
-- `saveSessionSummary(options)` — Capture session accomplishments
+- `ingestDocument(options)`, Extract memories from docs
+- `saveSessionSummary(options)`, Capture session accomplishments
 
 ### Import / Export
-- `exportMemories()` — Back up memories as JSON
-- `importMemories(memories)` — Bulk import from JSON
-- `getMemoryVersions(memoryId)` — Version history
+- `exportMemories()`, Back up memories as JSON
+- `importMemories(memories)`, Bulk import from JSON
+- `getMemoryVersions(memoryId)`, Version history
 
 ### Team & Collaboration
-- `getTeamMembers(projectId?)` — List team members
-- `inviteTeamMember(email, projectId, role?)` — Invite a member
-- `removeTeamMember(memberId)` — Remove a member
+- `getTeamMembers(projectId?)`, List team members
+- `inviteTeamMember(email, projectId, role?)`, Invite a member
+- `removeTeamMember(memberId)`, Remove a member
 
 ### Memory Relationships & Promotion
-- `linkMemories(memoryId, relatedMemoryId, relationshipType)` — Link related memories
-- `getMemoryLinks(memoryId)` — Get linked memories
-- `getPromotionCandidates()` — Find cross-project patterns
-- `promoteToGlobal(memoryId)` — Promote to global scope
+- `linkMemories(memoryId, relatedMemoryId, relationshipType)`, Link related memories
+- `getMemoryLinks(memoryId)`, Get linked memories
+- `getPromotionCandidates()`, Find cross-project patterns
+- `promoteToGlobal(memoryId)`, Promote to global scope
 
 ## Error Handling
 
