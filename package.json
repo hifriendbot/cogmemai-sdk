@@ -1,6 +1,6 @@
 {
   "name": "cogmemai-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CogmemAi: the smart memory layer for everything Ai. Persistent, encrypted memory for agents, assistants, and robots. 95.10% LongMemEval.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
