@@ -20,6 +20,13 @@ import type {
   MemoryLink,
   PromotionCandidate,
   Memory,
+  GuardCheckOptions,
+  GuardCheckResult,
+  ReviewWorkOptions,
+  ReviewWorkResult,
+  GuardRule,
+  IntentViolation,
+  IntentDocument,
 } from "./types.js";
 
 export type {
@@ -44,6 +51,13 @@ export type {
   MemoryLink,
   PromotionCandidate,
   Memory,
+  GuardCheckOptions,
+  GuardCheckResult,
+  GuardRule,
+  ReviewWorkOptions,
+  ReviewWorkResult,
+  IntentViolation,
+  IntentDocument,
 };
 
 /** Error thrown by CogmemAi API calls. */
@@ -295,5 +309,44 @@ export class CogmemAi {
   /** Promote a project memory to global scope. */
   async promoteToGlobal(memoryId: number): Promise<{ success: boolean }> {
     return this.post<{ success: boolean }>(`memory/${memoryId}/promote`, {});
+  }
+
+  // ─── Guard and review: the memory that says no, and checks the work ───
+
+  /**
+   * Ask before acting. Judges an action against the rules this person has
+   * asked their Ai to keep (rule memories, global and project) and the NEVER
+   * and MUST lines of the project intent. Returns allow, ask or deny with the
+   * rule that applies. Fails open: an error is an allow with judged=false.
+   */
+  async guardCheck(options: GuardCheckOptions): Promise<GuardCheckResult> {
+    return this.post<GuardCheckResult>("guard-check", {
+      action: options.action,
+      kind: options.kind ?? "action",
+      context: options.context ?? "",
+      project_id: options.project_id ?? "",
+    });
+  }
+
+  /**
+   * Review finished work against the intent. Pass a description, output,
+   * message or transcript; the project intent document is used, or an
+   * inline intent when there is none. Returns a plain summary, what the
+   * intent covers, what it does not, and any violations.
+   */
+  async reviewWork(options: ReviewWorkOptions): Promise<ReviewWorkResult> {
+    const body: Record<string, unknown> = { work: options.work, project_id: options.project_id ?? "" };
+    if (options.intent) body.intent = options.intent;
+    return this.post<ReviewWorkResult>("intent-check", body);
+  }
+
+  /** Read a project's intent document. */
+  async getIntent(projectId: string): Promise<IntentDocument> {
+    return this.get<IntentDocument>("intent", { project_id: projectId });
+  }
+
+  /** Write a project's intent document: purpose, invariants, decisions, out of scope. */
+  async setIntent(projectId: string, content: string, changedBy: string = "user"): Promise<{ success: boolean; memory_id?: number }> {
+    return this.post<{ success: boolean; memory_id?: number }>("intent", { project_id: projectId, content, changed_by: changedBy });
   }
 }

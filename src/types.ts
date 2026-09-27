@@ -170,6 +170,78 @@ export interface PromotionCandidate {
   memories: Memory[];
 }
 
+/** Options for guardCheck: "may I do this?" */
+export interface GuardCheckOptions {
+  /** The action about to be taken, in plain words or as the exact command or message. */
+  action: string;
+  /** What sort of thing it is. Default "action". */
+  kind?: "command" | "action" | "message" | "other";
+  /** Why, or what the person asked for. */
+  context?: string;
+  /** Project whose rules and intent apply. Global rules always apply. */
+  project_id?: string;
+}
+
+/** The rule a guard verdict rests on. */
+export interface GuardRule {
+  id: number;
+  source: "rule" | "intent";
+  subject: string;
+  content: string;
+}
+
+/** Result of guardCheck. Fails open: an error is an allow with judged=false. */
+export interface GuardCheckResult {
+  judged: boolean;
+  decision: "allow" | "ask" | "deny";
+  reason: string;
+  rules_considered: number;
+  kind?: string;
+  rule?: GuardRule;
+  matched_by?: "literal" | "judged";
+  note?: string;
+  model?: string;
+}
+
+/** Options for reviewWork: "did I do what was asked?" */
+export interface ReviewWorkOptions {
+  /** What was done: a description, the output, a message, or a transcript. */
+  work: string;
+  /** Intent to judge against when the project has no stored intent document. */
+  intent?: string;
+  /** Project whose intent document applies. */
+  project_id?: string;
+}
+
+/** A contradiction between the intent and the work. */
+export interface IntentViolation {
+  intent: string;
+  change: string;
+}
+
+/** Result of reviewWork. judged=false carries a reason (no_intent, tier, empty_work, ai_error). */
+export interface ReviewWorkResult {
+  judged: boolean;
+  reason?: string;
+  memory_id?: number;
+  summary?: string;
+  covered?: string[];
+  uncovered?: string[];
+  violations?: IntentViolation[];
+  coverage?: number | null;
+  proposed_update?: string;
+  model?: string;
+}
+
+/** A project's intent document. */
+export interface IntentDocument {
+  exists: boolean;
+  project_id?: string;
+  content?: string;
+  memory_id?: number;
+  updated_at?: string;
+}
+
 /** CogmemAi client options. */
 export interface CogmemAiOptions {
   /** API key (starts with cm_). */
