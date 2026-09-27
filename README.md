@@ -72,6 +72,12 @@ await client.extractMemories({
 - `getPromotionCandidates()`, Find cross-project patterns
 - `promoteToGlobal(memoryId)`, Promote to global scope
 
+### Guard & Review (the memory that says no, and checks the work)
+- `guardCheck({ action, kind?, context?, project_id? })`, Ask before acting: allow, ask or deny against remembered rules and the intent
+- `reviewWork({ work, intent?, project_id? })`, Review finished work (a description, output, message or transcript) against the intent
+- `getIntent(projectId)`, Read the project intent document
+- `setIntent(projectId, content, changedBy?)`, Write the project intent document
+
 ## Error Handling
 
 ```typescript
